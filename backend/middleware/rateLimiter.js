@@ -1,9 +1,11 @@
 import rateLimit from "express-rate-limit";
 
-/* 100 req / 15 min for all /api routes */
+/* 400 req / 15 min per IP for all /api routes.
+   Higher than a typical SPA needs because the admin dashboard fans out
+   ~8 requests per refresh; sensitive routes have their own tighter limits. */
 export const globalRateLimiter = rateLimit({
   windowMs:           15 * 60 * 1000,
-  max:                100,
+  max:                400,
   standardHeaders:    true,
   legacyHeaders:      false,
   message:            { error: "Too many requests. Please try again later." },

@@ -28,6 +28,12 @@ dotenv.config();
 
 const app = express();
 
+/* Behind Render/Vercel/Heroku-style reverse proxies, trust the first hop
+   so req.ip + express-rate-limit see the REAL client IP (not the proxy's),
+   and secure cookies work. '1' = one proxy hop (not 'true', which would let
+   clients spoof X-Forwarded-For to bypass rate limits). */
+app.set("trust proxy", 1);
+
 export const dbReady = connectDB();
 
 /* ── Security headers (Helmet) ────────────────────────── */
