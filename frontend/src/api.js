@@ -1,4 +1,17 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+/*
+  Normalise the API base URL so it always ends in exactly one "/api".
+  This makes VITE_API_URL forgiving — both of these work:
+    https://your-backend.onrender.com
+    https://your-backend.onrender.com/api
+*/
+function resolveApiUrl() {
+  let base = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').trim();
+  base = base.replace(/\/+$/, '');          // strip trailing slashes
+  if (!/\/api$/i.test(base)) base += '/api'; // ensure single /api suffix
+  return base;
+}
+
+const API_URL = resolveApiUrl();
 
 async function parseResponse(res) {
   const contentType = res.headers.get('content-type') || '';

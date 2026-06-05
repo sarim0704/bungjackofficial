@@ -105,11 +105,25 @@ const allowedOrigins = [
   "https://www.bungjackofficial.com",
 ];
 
+/* Allow this project's Vercel deployment + preview URLs.
+   Scoped to the owner's Vercel account namespace, so third parties
+   can't spoof an allowed origin. Override via VERCEL_ORIGIN_REGEX env. */
+const vercelOriginRegex = process.env.VERCEL_ORIGIN_REGEX
+  ? new RegExp(process.env.VERCEL_ORIGIN_REGEX)
+  : /^https:\/\/[a-z0-9-]+-sarim0704s-projects\.vercel\.app$/i;
+
+const isAllowedOrigin = (origin) => {
+  const o = norm(origin);
+  if (allowedOrigins.includes(o)) return true;
+  if (vercelOriginRegex.test(o)) return true;
+  return false;
+};
+
 app.use(
   cors({
     origin: (origin, callback) => {
       /* Allow Postman / server-to-server requests without an Origin header */
-      if (!origin || allowedOrigins.includes(norm(origin))) {
+      if (!origin || isAllowedOrigin(origin)) {
         callback(null, true);
       } else {
         /* Disallowed origin — deny without throwing (avoids a 500) */
