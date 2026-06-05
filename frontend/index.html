@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ── Security Headers ───────────────────────────── -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src 'self' https://js.stripe.com https://challenges.cloudflare.com;
+        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+        font-src 'self' https://fonts.gstatic.com;
+        img-src 'self' data: https://res.cloudinary.com https://images.unsplash.com https://*.fbcdn.net https://*.cdninstagram.com;
+        connect-src 'self' https://api.stripe.com http://localhost:5000 https://bungjackbackend.onrender.com https://challenges.cloudflare.com;
+        frame-src 'self' https://js.stripe.com https://checkout.stripe.com https://challenges.cloudflare.com;
+        base-uri 'self';
+        form-action 'self';
+        object-src 'none';
+      "
+    />
+
+    <!-- ── SEO ────────────────────────────────────────── -->
+    <title>Bung Jack Official — Independent Media Platform</title>
+    <meta name="description" content="Independent media platform for public stories, videos, reels, and community-focused updates. Subscribe for premium exclusive content." />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Bung Jack Official" />
+    <meta property="og:description" content="Independent media. Stories that speak the truth." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/logo.webp" />
+
+    <!-- ── Favicon (logo first, SVG fallback) ─────────── -->
+    <link rel="icon" type="image/webp" href="/logo.webp" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/logo.webp" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

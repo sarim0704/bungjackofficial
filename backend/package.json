@@ -1,0 +1,41 @@
+{
+  "name": "bungjackofficial-backend",
+  "version": "1.0.0",
+  "description": "Secure backend API for BungJack Official media platform",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed:admin": "node seed/seedAdmin.js",
+    "test:apis": "node scripts/testApis.js"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.5.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "hpp": "^0.2.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.5",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^8.0.10",
+    "otplib": "^12.0.1",
+    "qrcode": "^1.5.4",
+    "streamifier": "^0.1.1",
+    "stripe": "^17.5.0",
+    "xss-clean": "^0.1.4",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
