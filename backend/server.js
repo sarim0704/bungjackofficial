@@ -87,22 +87,33 @@ app.use((req, res, next) => {
 });
 
 /* ── CORS ─────────────────────────────────────────────── */
+/* Normalise: strip trailing slashes so a FRONTEND_URL like
+   "https://site.app/" still matches the Origin "https://site.app". */
+const norm = (u) => (u || "").replace(/\/+$/, "");
+
+/* Comma-separated FRONTEND_URL is supported (e.g. prod + custom domain) */
+const envOrigins = (FRONTEND_URL || "")
+  .split(",")
+  .map((s) => norm(s.trim()))
+  .filter(Boolean);
+
 const allowedOrigins = [
-  FRONTEND_URL,
+  ...envOrigins,
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "https://bungjackofficial.com",
   "https://www.bungjackofficial.com",
-].filter(Boolean);
+];
 
 app.use(
   cors({
     origin: (origin, callback) => {
-      /* Allow Postman / server-to-server requests without Origin */
-      if (!origin || allowedOrigins.includes(origin)) {
+      /* Allow Postman / server-to-server requests without an Origin header */
+      if (!origin || allowedOrigins.includes(norm(origin))) {
         callback(null, true);
       } else {
-        callback(new Error("CORS: origin not allowed"));
+        /* Disallowed origin — deny without throwing (avoids a 500) */
+        callback(null, false);
       }
     },
     credentials: true,
